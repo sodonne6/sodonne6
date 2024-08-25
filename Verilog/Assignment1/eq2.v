@@ -12,11 +12,9 @@ module eq2
    // instantiate two 1-bit comparators that we already know are tested and work
    // named instantiation allows us to change order of ports.
    eq1 eq_bit0_unit (.i0(a[0]), .i1(b[0]), .eq(e0));
-   //ADDED SEMICOLON AND CHANGED eq3 TO eq1
    eq1 eq_bit1_unit (.eq(e1), .i0(a[1]), .i1(b[1]));
 
    // a and b are equal if individual bits are equal, which comes from the 1-bit comparators
-   //Changed e0 ^ e1 to e0 * e1 FOR AND OPERATION
-   assign aeqb = e0 * e1;
+   assign aeqb = e0 ^ e1;
 
 endmodule
