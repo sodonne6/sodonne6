@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h> 
 
 #define N 9 //9x9 board so N defined as 9
 
@@ -109,12 +110,16 @@ int main() {
     printf("Original Sudoku board:\n");
     printBoard(board);
     
+    clock_t start = clock();
+
     if (solveSudoku(board)) {
         printf("\nSolved Sudoku board:\n");
         printBoard(board);
     } else {
         printf("\nNo solution exists\n");
     }
-    
+    clock_t end = clock();
+    double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+    printf("Time taken to solve the Sudoku: %f seconds\n", time_taken);
     return 0;
 }
