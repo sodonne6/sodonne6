@@ -1,12 +1,26 @@
-/*module fsm_tb;
+module fsm_tb;
 
     // Wires to connect FSM, stimulus, and monitor
     wire clk, reset;
     wire a, b;
     wire enter, exit;
+    wire inc_exp, dec_exp;
+    wire [3:0] count_exp;
+    wire [3:0] count;
 
     // Instantiate stimulus generator
-    stim_gen STIM (
+    stim_gen stim_gen (
+        .clk(clk),
+        .reset(reset),
+        .a(a),
+        .b(b),
+        .inc_exp(inc_exp),
+        .dec_exp(dec_exp),
+        .count_exp(count_exp)
+    );
+    
+    // Instantiate FSM
+    fsm uut (
         .clk(clk),
         .reset(reset),
         .a(a),
@@ -15,23 +29,23 @@
         .exit(exit)
     );
 
-    // Instantiate DUT (FSM)
-    fsm DUT (
+    // Instantiate counter
+    counter counter (
         .clk(clk),
         .reset(reset),
-        .a(a),
-        .b(b),
-        .enter(enter),
-        .exit(exit)
+        .inc(enter),
+        .dec(exit),
+        .count(count)
     );
 
-
-    // Instantiate monitor
-    scoreboard MON (
+    // Instantiate scoreboard
+    scoreboard scoreboard (
         .clk(clk),
         .reset(reset),
-        .a(a),
-        .b(b),
+        .inc_exp(inc_exp),
+        .dec_exp(dec_exp),
+        .count_exp(count_exp),
+        .count(count),
         .enter(enter),
         .exit(exit)
     );
