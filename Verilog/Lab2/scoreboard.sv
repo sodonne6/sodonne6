@@ -1,41 +1,46 @@
 module scoreboard (
     input wire clk, reset,
-    input wire inc_exp, dec_exp,
-    input wire enter, exit
+    input wire inc_exp, dec_exp, 
+    input wire [3:0] count_exp,
+    input wire enter, exit,
+    input wire [3:0] count
 );
     integer error_count = 0;
 
     initial begin
-        $display("Scoreboard Test Started");
+        $display("Test Started");
     end
 
     always @(posedge clk) begin
         if (reset) begin
             error_count = 0;
         end else begin
-            if (inc_exp && ~enter) begin //if enter isn't triggered when expected to 
+            if (inc_exp && ~enter) begin
                 $display("Error: Expected enter signal, but not received");
                 error_count = error_count + 1;
             end
-            if (dec_exp && ~exit) begin //if exit isnt triggered when expected
+            if (dec_exp && ~exit) begin
                 $display("Error: Expected exit signal, but not received");
                 error_count = error_count + 1;
             end
-            if (~inc_exp && enter) begin //if enter is triggered when it is not expected
+            if (~inc_exp && enter) begin
                 $display("Error: Unexpected enter signal");
                 error_count = error_count + 1;
             end
-            if (~dec_exp && exit) begin //when exit is triggered when it is not expected
+            if (~dec_exp && exit) begin 
                 $display("Error: Unexpected exit signal");
+                error_count = error_count + 1;
+            end
+            if (count != count_exp) begin //ensure counter follows expected count
+                $display("Error: Count mismatch. Expected: %d, Got: %d", count_exp, count);
                 error_count = error_count + 1;
             end
         end
     end
 
     initial begin
-        #100;
-        $display("Test finished with %d errors.", error_count);
+        #500;  // Extend the simulation time
+        $display("Test completed with %d errors.", error_count);
         $stop;
     end
-
 endmodule
