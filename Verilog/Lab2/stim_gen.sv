@@ -7,7 +7,7 @@ module stim_gen (
     output reg dec_exp, 
     output reg [3:0] count_exp
 );
-    // Clock generation
+    //clock generation
     initial begin
         clk = 0;
         forever #5 clk = ~clk; // 10ns clock period
@@ -24,7 +24,7 @@ module stim_gen (
         #10 reset = 0;
         
 
-        // Sequence 1: Car enters +1 (both enter and inc_exp high)
+        //Sequence 1: Car enters +1 (both enter and inc_exp high)
         a = 1; b = 0; #10;
         a = 1; b = 1; #10;
         a = 0; b = 1; #10;
@@ -32,7 +32,7 @@ module stim_gen (
         inc_exp = 0;
         count_exp = count_exp + 1;
 
-        // Sequence 2: Car exits -1 (both exit and dec_exp high)
+        //Sequence 2: Car exits -1 (both exit and dec_exp high)
         a = 0; b = 1; #10;
         a = 1; b = 1; #10;
         a = 1; b = 0; #10;
@@ -40,7 +40,7 @@ module stim_gen (
         dec_exp = 0;
         count_exp = count_exp -1;
         
-        // Sequence 3: Car exits +1 (both enter and inc_exp high)
+        //Sequence 3: Car exits +1 (both enter and inc_exp high)
         a = 1; b = 0; #10;
         a = 1; b = 1; #10;
         a = 0; b = 1; #10;
@@ -48,7 +48,8 @@ module stim_gen (
         inc_exp = 0;
         count_exp = count_exp + 1;
         
-        // Sequence 4: Car begins to enter but reverses out (10->11->10->00)
+        //Sequence 4: Car begins to enter but reverses out (10->11->10->00)
+        //sequence not complete fully
         //inc and dec expected to be zero
         a = 1; b = 0; #10;
         a = 1; b = 1; #10;
@@ -56,7 +57,7 @@ module stim_gen (
         a = 0; b = 0; inc_exp = 0; #6;
         inc_exp = 0;
 
-        // Sequence 5: Car enters +1 (both enter and inc_exp high)
+        //Sequence 5: Car enters +1 (both enter and inc_exp high)
         a = 1; b = 0; #10;
         a = 1; b = 1; #10;
         a = 0; b = 1; #10;
@@ -64,7 +65,7 @@ module stim_gen (
         inc_exp = 0;
         count_exp = count_exp + 1;
         
-        // Sequence 6: Car exits -1 (both exit and dec_exp high)
+        //Sequence 6: Car exits -1 (both exit and dec_exp high)
         a = 0; b = 1; #10;
         a = 1; b = 1; #10;
         a = 1; b = 0; #10;
@@ -72,7 +73,7 @@ module stim_gen (
         dec_exp = 0;
         count_exp = count_exp -1;
         
-        // Sequence 7: Car begins to exit but reverses back in (01->11->01->00)
+        //Sequence 7: Car begins to exit but reverses back in (01->11->01->00)
         //inc and dec expected to be zero
         a = 0; b = 1; #10;
         a = 1; b = 1; #10;
