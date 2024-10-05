@@ -16,23 +16,23 @@ module scoreboard (
             error_count = 0;
         end else begin
             if (inc_exp && ~enter) begin
-                $display("Error: Expected enter signal, but not received");
+                $display("Error: Expected enter signal but not received by FSM");
                 error_count = error_count + 1;
             end
             if (dec_exp && ~exit) begin
-                $display("Error: Expected exit signal, but not received");
+                $display("Error: Expected exit signal but not received by FSM");
                 error_count = error_count + 1;
             end
             if (~inc_exp && enter) begin
-                $display("Error: Unexpected enter signal");
+                $display("Error: Unexpected Enter signal from FSM");
                 error_count = error_count + 1;
             end
             if (~dec_exp && exit) begin 
-                $display("Error: Unexpected exit signal");
+                $display("Error: Unexpected Exit signal from FSM");
                 error_count = error_count + 1;
             end
             if (count != count_exp) begin //ensure counter follows expected count
-                $display("Error: Count mismatch. Expected: %d, Got: %d", count_exp, count);
+                $display("Error: Expected Count and Actual Count mismatch. Expected: %d, Actual: %d", count_exp, count);
                 error_count = error_count + 1;
             end
         end
@@ -40,7 +40,7 @@ module scoreboard (
 
     initial begin
         #500;  // Extend the simulation time
-        $display("Test completed with %d errors.", error_count);
+        $display("Test complete with a total %d errors.", error_count);
         $stop;
     end
 endmodule
