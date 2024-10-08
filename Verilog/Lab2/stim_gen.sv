@@ -1,11 +1,12 @@
+//This module will consist of test cases which will be passed to the fsm and scoreboard module
 module stim_gen (
-    output reg clk, 
-    output reg reset, 
-    output reg a, 
-    output reg b, 
-    output reg inc_exp, 
-    output reg dec_exp, 
-    output reg [3:0] count_exp
+    output reg clk,  //clock signal
+    output reg reset,  //reset signal
+    output reg a,  //sensor a input
+    output reg b,  //sensor b input 
+    output reg inc_exp,  //output for expected increment to be sent to scoreboard
+    output reg dec_exp,  //output for expected decrement to be sent to scoreboard
+    output reg [3:0] count_exp //output for expected count to be sent to scoreboard to compare to actual count
 );
     //clock generation
     initial begin
@@ -13,7 +14,7 @@ module stim_gen (
         forever #5 clk = ~clk; // 10ns clock period
     end
 
-    // Stimulus generation
+    //stimulus generation
     initial begin
         reset = 1;
         a = 0;
@@ -57,6 +58,7 @@ module stim_gen (
         a = 0; b = 0; inc_exp = 0; #6;
         inc_exp = 0;
 
+
         //Sequence 5: Car enters +1 (both enter and inc_exp high)
         a = 1; b = 0; #10;
         a = 1; b = 1; #10;
@@ -64,7 +66,7 @@ module stim_gen (
         a = 0; b = 0; inc_exp = 1; #6;
         inc_exp = 0;
         count_exp = count_exp + 1;
-        
+       
         //Sequence 6: Car exits -1 (both exit and dec_exp high)
         a = 0; b = 1; #10;
         a = 1; b = 1; #10;
@@ -80,6 +82,7 @@ module stim_gen (
         a = 0; b = 1; #10;
         a = 0; b = 0; inc_exp = 0; #6;
         inc_exp = 0;
-        
+
+       
     end
 endmodule
