@@ -21,4 +21,9 @@
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" height="30" alt="c logo"  />
 </div>
 
+###
 
+<div align="center">
+  <h3>🎵 Recently Played on Spotify</h3>
+  <img src="https://spotify-recently-played-readme.vercel.app/api?user=shaneod01&count=5&width=500&unique=true&theme=dracula" alt="Spotify recently played" />
+</div>
